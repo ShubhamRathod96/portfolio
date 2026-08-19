@@ -155,6 +155,54 @@ if (prefersReducedMotion) {
   statNumbers.forEach((el) => statObserver.observe(el));
 }
 
+/* Hero cursor spotlight */
+const heroSpotlight = document.getElementById("heroSpotlight");
+const heroSectionEl = document.querySelector(".hero");
+
+if (heroSpotlight && heroSectionEl && !prefersReducedMotion) {
+  heroSectionEl.addEventListener("pointermove", (e) => {
+    const rect = heroSectionEl.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    heroSpotlight.style.setProperty("--x", x + "%");
+    heroSpotlight.style.setProperty("--y", y + "%");
+  });
+}
+
+/* 3D tilt on cards */
+if (!prefersReducedMotion) {
+  const tiltEls = document.querySelectorAll(".project-card, .logo-card, .edu-item");
+
+  tiltEls.forEach((el) => {
+    el.addEventListener("pointermove", (e) => {
+      const rect = el.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      const rotateX = (-py * 8).toFixed(2);
+      const rotateY = (px * 8).toFixed(2);
+      el.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+    });
+
+    el.addEventListener("pointerleave", () => {
+      el.style.transform = "";
+    });
+  });
+}
+
+/* Back to top button */
+const backToTop = document.getElementById("backToTop");
+
+function updateBackToTop() {
+  backToTop.classList.toggle("visible", window.scrollY > 480);
+}
+
+window.addEventListener("scroll", updateBackToTop, { passive: true });
+updateBackToTop();
+
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+});
+
 /* Hero particle background */
 const canvas = document.getElementById("particles");
 
