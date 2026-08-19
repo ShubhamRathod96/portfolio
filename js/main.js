@@ -75,10 +75,10 @@ if (prefersReducedMotion || !("IntersectionObserver" in window)) {
 /* Typing effect for hero role */
 const typedEl = document.getElementById("typedRole");
 const roles = [
-  "Sr. Unity Developer building mobile games & interactive experiences",
+  "Software Developer building games & interactive experiences",
   "C# Developer specializing in gameplay programming",
   "Shipping polished puzzle & casual games for Android",
-  "AI-assisted developer, from prototype to production",
+  "Open to Unity, Unreal, Godot — and any engine",
 ];
 
 if (prefersReducedMotion) {
